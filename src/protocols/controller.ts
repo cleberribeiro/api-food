@@ -1,6 +1,6 @@
 interface Controller {
-  create(): Promise<any>;
+  create(data: any): Promise<any>;
   list(): Promise<any>;
-  update(): Promise<any>;
-  delete(): Promise<any>;
+  update(id: number, data: any): Promise<any>;
+  delete(id: number): Promise<any>;
 }
