@@ -1,6 +1,7 @@
-interface Controller {
-  create(data: any): Promise<any>;
-  list(): Promise<any>;
-  update(id: number, data: any): Promise<any>;
-  delete(id: number): Promise<any>;
+import { Request, Response } from "express";
+export interface Controller {
+  create(request: Request, response: Response): Promise<any>;
+  list(request: Request, response: Response): Promise<any>;
+  update(request: Request, response: Response): Promise<any>;
+  delete(request: Request, response: Response): Promise<any>;
 }
