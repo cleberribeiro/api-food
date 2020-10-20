@@ -1,6 +1,6 @@
 // const express = require('express');
 
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 import { ProdutoController } from './../controllers/produto/produto-controller';
 
 const produtoController = new ProdutoController();

@@ -6,8 +6,7 @@ export default (app: Express): void => {
   app.use('/api/v1', router);
   readdirSync(`${__dirname}`).map(async (file) => {
     if (!file.includes('.config.') && !file.includes('.test.') && !file.endsWith('.map')) {
-        (await import(`../routes/${file}`)).default(router);
-        console.log('DBG[file]', file);
+      (await import(`../routes/${file}`)).default(router);
     }
   });
 };
