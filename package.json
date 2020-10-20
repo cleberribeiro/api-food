@@ -4,11 +4,7 @@
   "description": "API REST para cadastro de produtos e realização/controle de pedidos",
   "main": "index.js",
   "scripts": {
-<<<<<<< HEAD
-    "start": "node src/index.js",
-=======
     "start": "tsc && node dist/server.js ",
->>>>>>> develop
     "build": "./node_modules/.bin/babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
     "dev": "ts-node-dev -r tsconfig-paths/register --respawn --ignore-watch node_modules --no-notify src/server.ts",
     "test": "jest"
