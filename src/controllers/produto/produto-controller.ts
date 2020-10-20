@@ -1,5 +1,7 @@
+import { Produto } from "src/models/produto.model";
+
 export class ProdutoController implements Controller {
-    create() {
+    create(data: Produto) {
         return Promise.resolve(null);
     }
     list() {
