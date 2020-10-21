@@ -5,4 +5,4 @@ const env = process.env.NODE_ENV === 'test' ? configuration.test : configuration
 
 const connection = knex(env);
 
-module.exports = connection;
+export default connection;
