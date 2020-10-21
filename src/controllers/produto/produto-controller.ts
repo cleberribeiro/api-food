@@ -16,7 +16,7 @@ export class ProdutoController implements Controller {
         status,
       });
 
-      return Promise.resolve(response.json({ message: 'Deu certo man...' }));
+      return Promise.resolve(response.json({ message: 'Produto criado com sucesso.' }));
     } catch (error) {
       return Promise.resolve(response.json(error));
     }
