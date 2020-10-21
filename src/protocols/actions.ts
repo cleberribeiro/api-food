@@ -12,3 +12,6 @@ export interface OnUpdate {
 export interface OnDelete {
   delete(request: Request, response: Response): Promise<Response>;
 }
+export interface OnAdd {
+  add(request: Request, response: Response): Promise<Response>;
+}
