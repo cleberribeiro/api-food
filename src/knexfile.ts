@@ -5,10 +5,10 @@ export default {
   development: {
     client: 'sqlite3',
     connection: {
-      filename: './src/database/db.sqlite3'
+      filename: './database/db.sqlite3'
     },
     migrations: {
-      directory: './src/database/migrations'
+      directory: './database/migrations'
     },
     useNullAsDefault: true,
   },
@@ -16,10 +16,10 @@ export default {
   test: {
     client: 'sqlite3',
     connection: {
-      filename: './src/database/test.sqlite3'
+      filename: './database/test.sqlite3'
     },
     migrations: {
-      directory: './src/database/migrations'
+      directory: './database/migrations'
     },
     useNullAsDefault: true,
   },
