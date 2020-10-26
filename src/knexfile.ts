@@ -3,7 +3,7 @@
 export default {
 
   development: {
-    client: 'sqlite3',
+    client: 'mysql',
     connection: {
       filename: './database/db.sqlite3'
     },
