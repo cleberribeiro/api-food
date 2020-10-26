@@ -12,7 +12,7 @@ export class CarrinhoController implements OnAdd {
       // Caso não exista deve ser cirado o carrinho, pegar o id e gravar na
       // tabela carrinho_produto junto com a quantidade e o id do produto
       const { id_produto, qtd } = request.params;
-      const carrinho = await connection.table('carrinhos').select('id');
+      const carrinho = await connection().from('carrinhos').select('id');
       console.log('DBG[request.params]', request.params);
       
       console.log('DBG[carrinho]', carrinho);
