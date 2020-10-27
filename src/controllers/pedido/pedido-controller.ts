@@ -7,7 +7,7 @@ export class PedidoController {
     try {
       
 
-      return Promise.resolve(response.json({ message: 'Produto criado com sucesso.' }));
+      return Promise.resolve(response.json({ message: 'finalizarPedidoo.' }));
     } catch (error) {
       return Promise.reject(response.json(error));
     }
@@ -17,7 +17,7 @@ export class PedidoController {
     try {
       
 
-      return Promise.resolve(response.json({ message: 'Produto criado com sucesso.' }));
+      return Promise.resolve(response.json({ message: 'listarPedidos.' }));
     } catch (error) {
       return Promise.reject(response.json(error));
     }
@@ -27,7 +27,7 @@ export class PedidoController {
     try {
       
 
-      return Promise.resolve(response.json({ message: 'Produto criado com sucesso.' }));
+      return Promise.resolve(response.json({ message: 'atualizarStatusPedido.' }));
     } catch (error) {
       return Promise.reject(response.json(error));
     }
