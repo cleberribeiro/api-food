@@ -2,9 +2,14 @@ import { Request, Response } from 'express';
 import { Controller } from '../../protocols/controller';
 import connection from '../../database/connection';
 export class PedidoController {
+
+  listaItens: any;
+
   async finalizarPedido(request: Request, response: Response) {
+
+    const MIN_PEDIDO = 10.0;
+    
     try {
-      const MIN_PEDIDO = 10.0;
       console.log('DBG[request]', request.body);
       // knex.select('*').from('users').leftJoin('accounts', 'users.id', 'accounts.user_id')
 
@@ -37,6 +42,25 @@ export class PedidoController {
       }
 
       console.log('DBG.carrinho', carrinho);
+
+      // const trx = await connection.transaction();
+      //   trx('pedidos')
+      //     .insert({ lista_itens:  }, 'id')
+      //     .then((id) => {
+      //       id = id;
+      //       return trx('carrinho_produto').insert({
+      //         id_carrinho: id,
+      //         id_produto: request.params.id_produto,
+      //         qtd: request.params.qtd,
+      //       });
+      //     })
+      //     .then(trx.commit)
+      //     .catch(trx.rollback);
+      //   return Promise.resolve(
+      //     response.json({
+      //       id_carrinho: id,
+      //     })
+      //   );
 
       // await connection('pedidos').insert({
 
