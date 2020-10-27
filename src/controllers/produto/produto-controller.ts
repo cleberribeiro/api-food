@@ -22,22 +22,29 @@ export class ProdutoController implements Controller {
     }
   }
 /**
- * Este método será útil para listar os produtos ativos para venda. Ele recebe 
- * um parametro opcional chamado status (1 ou 0), conforme o que for informado nele
- * a query será executada levando em consideração o status de cada registro.
+ * Lista todos os produtos, independente dos status, ativo ou inativo.
  * 
  * @param request 
  * @param response 
  */
   async list(request: Request, response: Response) {
     try {
-      if (request.params.status && request.params.status !== undefined) {
-        const produtos = await connection('produtos').where({ status: Number(request.params.status) }).select('*');
-        return Promise.resolve(response.json(produtos));
-      } else {
-        const produtos = await connection('produtos').select('*');
-        return Promise.resolve(response.json(produtos));
-      }
+      const produtos = await connection('produtos').select('*');
+      return Promise.resolve(response.json(produtos));
+    } catch (error) {
+      return Promise.reject(response.json(error));
+    }
+  }
+/**
+ * Lista todos os produtos para venda, que estão com o status ativo.
+ * 
+ * @param request 
+ * @param response 
+ */
+  async listProdutosVenda(request: Request, response: Response) {
+    try {
+      const produtos = await connection('produtos').where({ status: true }).select('*');
+      return Promise.resolve(response.json(produtos));
     } catch (error) {
       return Promise.reject(response.json(error));
     }
