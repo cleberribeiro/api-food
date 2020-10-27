@@ -7,7 +7,7 @@ export class ProdutoController implements Controller {
     try {
       const { nome, descricao, preco, imagem, tags, status } = request.body;
 
-      await connection().from('produtos').insert({
+      await connection('produtos').insert({
         nome,
         descricao,
         preco,
@@ -32,10 +32,10 @@ export class ProdutoController implements Controller {
   async list(request: Request, response: Response) {
     try {
       if (request.params.status && request.params.status !== undefined) {
-        const produtos = await connection().from('produtos').where({ status: Number(request.params.status) }).select('*');
+        const produtos = await connection('produtos').where({ status: Number(request.params.status) }).select('*');
         return Promise.resolve(response.json(produtos));
       } else {
-        const produtos = await connection().from('produtos').select('*');
+        const produtos = await connection('produtos').select('*');
         return Promise.resolve(response.json(produtos));
       }
     } catch (error) {
@@ -44,7 +44,7 @@ export class ProdutoController implements Controller {
   }
 
   async update(request: Request, response: Response) {
-    const produto = await connection().from('produtos')
+    const produto = await connection('produtos')
       .where({ id: request.params.id })
       .update(request.body)
     return response.json({ message: 'Produto atualizado com sucesso.' });
@@ -52,7 +52,7 @@ export class ProdutoController implements Controller {
 
   async delete(request: Request, response: Response) {
     try {
-      const resposta = await connection().from('produtos').where({ id: request.params.id }).delete();
+      const resposta = await connection('produtos').where({ id: request.params.id }).delete();
       return Promise.resolve(response.json({ message: 'Produto removido com sucesso.' }));
     } catch (error) {
       return Promise.reject(response.json(error));
