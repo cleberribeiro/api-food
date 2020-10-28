@@ -1,6 +1,6 @@
 import { ItemPedido } from './item-pedido.type';
 
-enum StatusPedido {
+export enum StatusPedido {
   novo = 'novo',
   aceito = 'aceito',
   saiuEntrega = 'saiu para entrega',
@@ -9,7 +9,7 @@ enum StatusPedido {
 }
 
 export type Pedido = {
-  listaItens: [ItemPedido];
+  lista_itens: string;
   forma_pagamento: string;
   endereco_entrega: string;
   data_criacao: string;

@@ -1,18 +1,18 @@
 import { Request, Response } from 'express';
 import { Controller } from '../../protocols/controller';
 import connection from '../../database/connection';
+import { ItemPedido } from 'src/@types/pedido/item-pedido.type';
+import { Pedido, StatusPedido } from 'src/@types/pedido/pedido.type';
 export class PedidoController {
 
-  listaItens: any;
+  itens: ItemPedido[] = [];
 
   async finalizarPedido(request: Request, response: Response) {
 
     const MIN_PEDIDO = 10.0;
     
     try {
-      console.log('DBG[request]', request.body);
-      // knex.select('*').from('users').leftJoin('accounts', 'users.id', 'accounts.user_id')
-
+      
       const { id_carrinho, forma_pagamento, endereco_entrega } = request.body;
 
       const carrinho = await connection
@@ -41,32 +41,37 @@ export class PedidoController {
         );
       }
 
-      console.log('DBG.carrinho', carrinho);
+      const itens: ItemPedido[] = carrinho.map(item => {
+        return { id_produto: item.id, nome: item.nome, preco: item.preco, qtd: item.qtd }
+      });
 
-      // const trx = await connection.transaction();
-      //   trx('pedidos')
-      //     .insert({ lista_itens:  }, 'id')
-      //     .then((id) => {
-      //       id = id;
-      //       return trx('carrinho_produto').insert({
-      //         id_carrinho: id,
-      //         id_produto: request.params.id_produto,
-      //         qtd: request.params.qtd,
-      //       });
-      //     })
-      //     .then(trx.commit)
-      //     .catch(trx.rollback);
-      //   return Promise.resolve(
-      //     response.json({
-      //       id_carrinho: id,
-      //     })
-      //   );
+      const pedido: Pedido = {
+        data_criacao: '2020-10-28',
+        endereco_entrega: endereco_entrega,
+        forma_pagamento: forma_pagamento,
+        lista_itens: JSON.stringify(itens),
+        status: StatusPedido.aceito,
+        valor_total: valorPedido
+      }
+  
+      const trx = await connection.transaction();
+        trx('pedidos')
+          .insert(pedido)
+          .then(() => {
+            return trx('carrinho_produto').where({id_carrinho: id_carrinho}).del();
+          })
+          .then(() => {
+            return trx('carrinhos').where({id: id_carrinho}).del();
+          })
+          .then(trx.commit)
+          .catch((e) => {console.log('DBG[error]', e); trx.rollback});
 
-      // await connection('pedidos').insert({
+        return Promise.resolve(
+          response.json({
+            message: 'Seu pedido foi registrado com sucesso!'
+          })
+        );
 
-      // });
-
-      return Promise.resolve(response.json({ message: 'finalizarPedidoo.' }));
     } catch (error) {
       return Promise.reject(response.json(error));
     }
