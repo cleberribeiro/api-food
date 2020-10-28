@@ -81,8 +81,12 @@ export class PedidoController {
 
   async listarPedidos(request: Request, response: Response) {
     try {
-      const pedidos = await connection('pedidos').select('id', 'data_criacao', 'status', 'valor_total', 'lista_itens').orderBy('data_criacao')
-      return Promise.resolve(response.json(pedidos));
+      const pedidos = await connection('pedidos as p').orderBy('data_criacao').select('p.*');
+      const pedido_itens = await connection('pedido_itens as pi').select('pi.pedido_id', 'pi.nome');
+
+      // pedido_itens.map(item => );
+
+      return Promise.resolve(response.json({pedidos, pedido_itens}));
     } catch (error) {
       return Promise.reject(response.json(error));
     }
