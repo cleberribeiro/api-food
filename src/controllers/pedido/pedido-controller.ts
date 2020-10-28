@@ -41,21 +41,24 @@ export class PedidoController {
         );
       }
 
-      const itens: ItemPedido[] = carrinho.map(item => {
-        return { id_produto: item.id, nome: item.nome, preco: item.preco, qtd: item.qtd }
-      });
+      
 
       const pedido: Pedido = {
         endereco_entrega: endereco_entrega,
         forma_pagamento: forma_pagamento,
-        lista_itens: JSON.stringify(itens),
         status: StatusPedido.aceito,
         valor_total: valorPedido
       }
   
       const trx = await connection.transaction();
         trx('pedidos')
-          .insert(pedido)
+          .insert(pedido, 'id')
+          .then((id) => {
+            const itens: ItemPedido[] = carrinho.map(item => {
+              return { id_produto: item.id, nome: item.nome, preco: item.preco, qtd: item.qtd, pedido_id: id }
+            });
+            return trx('pedido_itens').insert(itens)
+          })
           .then(() => {
             return trx('carrinho_produto').where({id_carrinho: id_carrinho}).del();
           })

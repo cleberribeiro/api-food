@@ -9,7 +9,7 @@ export enum StatusPedido {
 }
 
 export type Pedido = {
-  lista_itens: string;
+  lista_itens?: ItemPedido[];
   forma_pagamento: string;
   endereco_entrega: string;
   data_criacao?: string;
