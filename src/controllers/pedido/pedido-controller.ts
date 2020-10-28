@@ -46,7 +46,6 @@ export class PedidoController {
       });
 
       const pedido: Pedido = {
-        data_criacao: '2020-10-28',
         endereco_entrega: endereco_entrega,
         forma_pagamento: forma_pagamento,
         lista_itens: JSON.stringify(itens),
@@ -79,7 +78,8 @@ export class PedidoController {
 
   async listarPedidos(request: Request, response: Response) {
     try {
-      return Promise.resolve(response.json({ message: 'listarPedidos.' }));
+      const pedidos = await connection('pedidos').select('id', 'data_criacao', 'status', 'valor_total', 'lista_itens').orderBy('data_criacao')
+      return Promise.resolve(response.json(pedidos));
     } catch (error) {
       return Promise.reject(response.json(error));
     }

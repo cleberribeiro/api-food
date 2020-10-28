@@ -6,7 +6,7 @@ export async function up(knex: Knex): Promise<void> {
     table.json('lista_itens').notNullable();
     table.string('forma_pagamento', 200).notNullable();
     table.string('endereco_entrega', 255).notNullable();
-    table.date('data_criacao').notNullable();
+    table.timestamp('data_criacao').notNullable().defaultTo(knex.fn.now());
     table.float('valor_total').notNullable();
     table
       .enu('status', [

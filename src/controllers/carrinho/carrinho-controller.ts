@@ -15,7 +15,6 @@ export class CarrinhoController implements OnAdd {
         trx('carrinhos')
           .insert({ token: uuidv4() }, 'id')
           .then((id) => {
-            id = id;
             return trx('carrinho_produto').insert({
               id_carrinho: id,
               id_produto: request.params.id_produto,

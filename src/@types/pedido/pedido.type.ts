@@ -12,7 +12,7 @@ export type Pedido = {
   lista_itens: string;
   forma_pagamento: string;
   endereco_entrega: string;
-  data_criacao: string;
+  data_criacao?: string;
   valor_total: number;
   status: StatusPedido;
 };
