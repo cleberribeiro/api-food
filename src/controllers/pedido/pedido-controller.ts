@@ -97,8 +97,16 @@ export class PedidoController {
 
   async atualizarStatusPedido(request: Request, response: Response) {
     try {
+
+      const { id_pedido, status } = request.body;
+
+      await connection('pedidos')
+      .where({ id: id_pedido })
+      .update({ status: status })
+      .catch((error) => { return Promise.reject(response.json(error)); });
+
       return Promise.resolve(
-        response.json({ message: 'atualizarStatusPedido.' })
+        response.json({ message: 'Status do pedido atualizado.' })
       );
     } catch (error) {
       return Promise.reject(response.json(error));

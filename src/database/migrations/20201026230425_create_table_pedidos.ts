@@ -11,7 +11,7 @@ export async function up(knex: Knex): Promise<void> {
     .enu('status', [
       'novo',
       'aceito',
-      'saiu para entrega',
+      'saiuEntrega',
       'entregue',
       'cancelado',
     ])
