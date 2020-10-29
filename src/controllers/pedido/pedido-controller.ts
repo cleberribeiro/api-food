@@ -5,8 +5,6 @@ import { ItemPedido } from 'src/@types/pedido/item-pedido.type';
 import { Pedido, StatusPedido } from 'src/@types/pedido/pedido.type';
 export class PedidoController {
 
-  itens: ItemPedido[] = [];
-
   async finalizarPedido(request: Request, response: Response) {
 
     const MIN_PEDIDO = 10.0;
@@ -40,8 +38,6 @@ export class PedidoController {
           })
         );
       }
-
-      
 
       const pedido: Pedido = {
         endereco_entrega: endereco_entrega,
@@ -84,9 +80,16 @@ export class PedidoController {
       const pedidos = await connection('pedidos as p').orderBy('data_criacao').select('p.*');
       const pedido_itens = await connection('pedido_itens as pi').select('pi.pedido_id', 'pi.nome');
 
-      // pedido_itens.map(item => );
+      pedidos.map(pedido => {
+        pedido.lista_itens = pedido_itens.filter(item => {
+          if (item.pedido_id === pedido.id) {
+            delete item.pedido_id;
+            return item.nome;
+          }
+        })
+      });
 
-      return Promise.resolve(response.json({pedidos, pedido_itens}));
+      return Promise.resolve(response.json({data: pedidos}));
     } catch (error) {
       return Promise.reject(response.json(error));
     }
