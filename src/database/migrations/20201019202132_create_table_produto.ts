@@ -9,7 +9,6 @@ export async function up(knex: Knex): Promise<void> {
     table.string('imagem');
     table.string('tags');
     table.boolean('status').notNullable();
-    table.timestamps();
   });
 }
 

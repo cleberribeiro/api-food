@@ -1,18 +1,16 @@
 import { Request, Response } from 'express';
 import { Controller } from '../../protocols/controller';
 import connection from '../../database/connection';
+import { ItemPedido } from 'src/@types/pedido/item-pedido.type';
+import { Pedido, StatusPedido } from 'src/@types/pedido/pedido.type';
 export class PedidoController {
-
-  listaItens: any;
 
   async finalizarPedido(request: Request, response: Response) {
 
     const MIN_PEDIDO = 10.0;
     
     try {
-      console.log('DBG[request]', request.body);
-      // knex.select('*').from('users').leftJoin('accounts', 'users.id', 'accounts.user_id')
-
+      
       const { id_carrinho, forma_pagamento, endereco_entrega } = request.body;
 
       const carrinho = await connection
@@ -41,32 +39,37 @@ export class PedidoController {
         );
       }
 
-      console.log('DBG.carrinho', carrinho);
+      const pedido: Pedido = {
+        endereco_entrega: endereco_entrega,
+        forma_pagamento: forma_pagamento,
+        status: StatusPedido.aceito,
+        valor_total: valorPedido
+      }
+  
+      const trx = await connection.transaction();
+        trx('pedidos')
+          .insert(pedido, 'id')
+          .then((id) => {
+            const itens: ItemPedido[] = carrinho.map(item => {
+              return { id_produto: item.id, nome: item.nome, preco: item.preco, qtd: item.qtd, pedido_id: id }
+            });
+            return trx('pedido_itens').insert(itens)
+          })
+          .then(() => {
+            return trx('carrinho_produto').where({id_carrinho: id_carrinho}).del();
+          })
+          .then(() => {
+            return trx('carrinhos').where({id: id_carrinho}).del();
+          })
+          .then(trx.commit)
+          .catch((e) => {console.log('DBG[error]', e); trx.rollback});
 
-      // const trx = await connection.transaction();
-      //   trx('pedidos')
-      //     .insert({ lista_itens:  }, 'id')
-      //     .then((id) => {
-      //       id = id;
-      //       return trx('carrinho_produto').insert({
-      //         id_carrinho: id,
-      //         id_produto: request.params.id_produto,
-      //         qtd: request.params.qtd,
-      //       });
-      //     })
-      //     .then(trx.commit)
-      //     .catch(trx.rollback);
-      //   return Promise.resolve(
-      //     response.json({
-      //       id_carrinho: id,
-      //     })
-      //   );
+        return Promise.resolve(
+          response.json({
+            message: 'Seu pedido foi registrado com sucesso!'
+          })
+        );
 
-      // await connection('pedidos').insert({
-
-      // });
-
-      return Promise.resolve(response.json({ message: 'finalizarPedidoo.' }));
     } catch (error) {
       return Promise.reject(response.json(error));
     }
@@ -74,7 +77,19 @@ export class PedidoController {
 
   async listarPedidos(request: Request, response: Response) {
     try {
-      return Promise.resolve(response.json({ message: 'listarPedidos.' }));
+      const pedidos = await connection('pedidos as p').orderBy('data_criacao').select('p.*');
+      const pedido_itens = await connection('pedido_itens as pi').select('pi.pedido_id', 'pi.nome');
+
+      pedidos.map(pedido => {
+        pedido.lista_itens = pedido_itens.filter(item => {
+          if (item.pedido_id === pedido.id) {
+            delete item.pedido_id;
+            return item.nome;
+          }
+        })
+      });
+
+      return Promise.resolve(response.json({data: pedidos}));
     } catch (error) {
       return Promise.reject(response.json(error));
     }
@@ -82,8 +97,16 @@ export class PedidoController {
 
   async atualizarStatusPedido(request: Request, response: Response) {
     try {
+
+      const { id_pedido, status } = request.body;
+
+      await connection('pedidos')
+      .where({ id: id_pedido })
+      .update({ status: status })
+      .catch((error) => { return Promise.reject(response.json(error)); });
+
       return Promise.resolve(
-        response.json({ message: 'atualizarStatusPedido.' })
+        response.json({ message: 'Status do pedido atualizado.' })
       );
     } catch (error) {
       return Promise.reject(response.json(error));
