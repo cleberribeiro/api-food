@@ -48,7 +48,7 @@ export class PedidoController {
   
       const trx = await connection.transaction();
         trx('pedidos')
-          .insert(pedido, 'id')
+          .insert(pedido)
           .then((id) => {
             const itens: ItemPedido[] = carrinho.map(item => {
               return { id_produto: item.id, nome: item.nome, preco: item.preco, qtd: item.qtd, pedido_id: id }
