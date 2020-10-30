@@ -61,8 +61,7 @@ export class PedidoController {
           .then(() => {
             return trx('carrinhos').where({id: id_carrinho}).del();
           })
-          .then(trx.commit)
-          .catch((e) => {console.log('DBG[error]', e); trx.rollback});
+          .then(trx.commit);
 
         return Promise.resolve(
           response.json({
