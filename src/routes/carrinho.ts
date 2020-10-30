@@ -1,6 +1,6 @@
 import { celebrate } from 'celebrate';
 import { Router } from 'express';
-import { carrinhoSchema } from 'src/schemas-validators/carrinho.validator';
+import { carrinhoSchema } from '../schemas-validators/carrinho.validator';
 import { CarrinhoController } from '../controllers/carrinho/carrinho-controller';
 
 const carrinhoController = new CarrinhoController();

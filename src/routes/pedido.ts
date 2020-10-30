@@ -1,6 +1,6 @@
 import { celebrate } from 'celebrate';
 import { Router } from 'express';
-import { atualizarStatusPedidoSchema, finalizarPedidoSchema } from 'src/schemas-validators/pedido.validator';
+import { atualizarStatusPedidoSchema, finalizarPedidoSchema } from '../schemas-validators/pedido.validator';
 import { PedidoController } from '../controllers/pedido/pedido-controller';
 
 const pedidoController = new PedidoController();
