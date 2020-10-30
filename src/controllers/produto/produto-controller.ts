@@ -44,7 +44,7 @@ export class ProdutoController implements Controller {
   async listProdutosVenda(request: Request, response: Response) {
     try {
       const produtos = await connection('produtos').where({ status: true }).select('*');
-      return Promise.resolve(response.json(produtos));
+      return Promise.resolve(response.json({data: produtos}));
     } catch (error) {
       return Promise.reject(response.json(error));
     }
