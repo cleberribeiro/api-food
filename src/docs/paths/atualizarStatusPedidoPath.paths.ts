@@ -11,23 +11,23 @@ export const atualizarStatusPedidoPath = {
             },
           },
         },
-        responses: {
-          '200': {
-            description: 'Sucesso',
-            content: {
-              'application/json': {
-                schema: {
-                  type: 'object',
-                  properties: {
-                    message: { type: 'string' },
-                  },
+      },
+      responses: {
+        '200': {
+          description: 'Sucesso',
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  message: { type: 'string' },
                 },
               },
             },
           },
-          '400': {
-            description: 'Bad Request',
-          },
+        },
+        '400': {
+          description: 'Bad Request',
         },
       },
     },
