@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { Controller } from '../../protocols/controller';
 import connection from '../../database/connection';
-import { ItemPedido } from 'src/@types/pedido/item-pedido.type';
-import { Pedido, StatusPedido } from 'src/@types/pedido/pedido.type';
+import { ItemPedido } from '../../@types/pedido/item-pedido.type';
+import { Pedido, StatusPedido } from '../../@types/pedido/pedido.type';
 export class PedidoController {
 
   async finalizarPedido(request: Request, response: Response) {
