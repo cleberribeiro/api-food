@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { ProdutoController } from './../controllers/produto/produto-controller';
-import { produtoSchemaPost, produtoSchemaPut, produtoSchemaDelete } from '../middlewares/produto.validator';
+import { produtoSchemaPost, produtoSchemaPut, produtoSchemaDelete } from '../schemas-validators/produto.validator';
 import { celebrate, errors } from 'celebrate';
 
 const produtoController = new ProdutoController();
