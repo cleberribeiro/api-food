@@ -11,7 +11,7 @@
       "baseUrl": ".",
       "paths": {
         "@controllers/*": ["./src/controllers/*"],
-        "@middlewares/*": ["src/middlewares/*"]
+        "@middlewares/*": ["./src/middlewares/*"]
       },
       "typeRoots": [
         "./node_modules/@types"
