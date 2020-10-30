@@ -30,7 +30,7 @@ export class ProdutoController implements Controller {
   async list(request: Request, response: Response) {
     try {
       const produtos = await connection('produtos').select('*');
-      return Promise.resolve(response.json(produtos));
+      return Promise.resolve(response.json({ data: produtos }));
     } catch (error) {
       return Promise.reject(response.json(error));
     }
