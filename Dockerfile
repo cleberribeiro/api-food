@@ -23,4 +23,4 @@ RUN ls -l -a
 
 RUN npm run-script build 
 
-ENTRYPOINT [ "node", "dist/server.js" ]
+# ENTRYPOINT [ "node", "dist/server.js" ]
