@@ -60,3 +60,38 @@ CREATE TABLE IF NOT EXISTS `pedido_itens` (
   KEY `pedido_itens_pedido_id_foreign` (`pedido_id`),
   CONSTRAINT `pedido_itens_pedido_id_foreign` FOREIGN KEY (`pedido_id`) REFERENCES `pedidos` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+
+INSERT INTO api_food.produtos
+(nome, descricao, preco, imagem, tags, status)
+VALUES('Burger', 'Hambúrguer clássico', 8.99, '', 'burger, carne, bacon, queijo', true);
+INSERT INTO api_food.produtos
+(nome, descricao, preco, imagem, tags, status)
+VALUES('Misto Quente', 'Misto quente de forno a minha moda', 18.99, '', 'presunto, requeijão, mussarela, tomate', true);
+INSERT INTO api_food.produtos
+(nome, descricao, preco, imagem, tags, status)
+VALUES('Sanduíche Natural', 'Sanduíche natural de frango bem temperado', 4.99, '', 'frango, cebola, tomate, cenoura, alface', true);
+INSERT INTO api_food.produtos
+(nome, descricao, preco, imagem, tags, status)
+VALUES('Cachorro Quente', 'Cachorro quente clássico', 7.49, '', 'salsicha, tomate, cebola, ervilha, batata palha, milho verde', true);
+INSERT INTO api_food.produtos
+(nome, descricao, preco, imagem, tags, status)
+VALUES('Bauru de Forno', 'Bauru de Forno', 10.49, '', 'pão, presuto, tomate, orégano, ovos, queijo, presuto', true);
+INSERT INTO api_food.produtos
+(nome, descricao, preco, imagem, tags, status)
+VALUES('Cachorro Quente Especial', 'Cachorro Quente Especial', 12.99, '', 'tomate, mostarda, queijo, salsicha, batata palha', true);
+INSERT INTO api_food.produtos
+(nome, descricao, preco, imagem, tags, status)
+VALUES('Coxinha de Mandioca', 'Coxinha de Mandioca', 2.99, '', 'mandioca, frango, farinha, trigo, carne seca, cebola', true);
+INSERT INTO api_food.produtos
+(nome, descricao, preco, imagem, tags, status)
+VALUES('Suco de Cenoura', 'Suco de Cenoura', 4.79, '', 'cenoura, laranja, limão, açúcar', true);
+INSERT INTO api_food.produtos
+(nome, descricao, preco, imagem, tags, status)
+VALUES('Suco de Laranja com Morango', 'Suco de laranja com morango', 5.19, '', 'laranja, morango, açúcar', true);
+INSERT INTO api_food.produtos
+(nome, descricao, preco, imagem, tags, status)
+VALUES('Suco de Laranja', 'Suco de laranja clássico', 4.99, '', 'laranja, açúcar', true);
+INSERT INTO api_food.produtos
+(nome, descricao, preco, imagem, tags, status)
+VALUES('Combo Lanche Feliz', 'Hambúrguer clássico + Suco de laranja clássico', 12.99, '', 'burger, carne, bacon, queijo, laranja, açúcar, suco, lanche, combo', true);
