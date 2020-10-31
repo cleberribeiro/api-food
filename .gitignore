@@ -1,5 +1,4 @@
 /node_modules
 /dist
-/src/database/db.sqlite3
 /src/.vscode/
-docker
+/docker/mysql/dbdata
