@@ -6,22 +6,23 @@ services:
     command: docker/wait-for-it.sh db:3306 -- docker/entrypoint.sh
     build: .
     restart: always
-    tty: true
     volumes: 
       - .:/api
     ports:
       - "9000:9000"
+    networks: 
+      - app-network
     depends_on: 
       - db
-    environment:
-      - NODE_ENV=development
     links:
       - db
+    environment:
+      - NODE_ENV=production
   db:
     build: docker/mysql
-    command: --innodb-use-native-aio=0
     container_name: db
     restart: always
+    tty: true
     ports: 
       - "3306:3306"
     volumes: 
@@ -31,4 +32,8 @@ services:
       - MYSQL_DATABASE=api_food
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_USER=root
-
+    networks:
+      - app-network
+networks: 
+  app-network:
+    driver: bridge

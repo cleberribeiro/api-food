@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "tsc && node dist/server.js ",
-    "build": "./node_modules/.bin/babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
+    "build": "rimraf dist && ./node_modules/.bin/babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
     "dev": "ts-node-dev -r tsconfig-paths/register --respawn --ignore-watch node_modules --no-notify src/server.ts",
     "test": "jest"
   },
@@ -44,6 +44,7 @@
     "express": "^4.17.1",
     "knex": "^0.21.6",
     "mysql2": "^2.2.5",
+    "rimraf": "^3.0.2",
     "swagger-ui-express": "^4.1.4",
     "uuid": "^8.3.1"
   }
