@@ -16,11 +16,11 @@ COPY package-lock.json /api
 RUN ls -l -a
 RUN npm install 
 
-COPY docker /api/.docker
+COPY docker /api/docker
 COPY src /api/src
 COPY .dockerignore .eslintignore .eslintrc.json .gitignore babel.config.json jest.config.js tsconfig.json /api/
 RUN ls -l -a
 
-RUN npm run-script build
+RUN npm run-script build 
 
-# ENTRYPOINT [ "node", "dist/server.js" ]
+ENTRYPOINT [ "node", "dist/server.js" ]
