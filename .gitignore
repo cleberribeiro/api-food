@@ -2,3 +2,4 @@
 /dist
 /src/database/db.sqlite3
 /src/.vscode/
+docker
