@@ -10,11 +10,10 @@
       "strict": true,
       "baseUrl": ".",
       "paths": {
-        "@controllers/*": ["./src/controllers/*"]
+        "@controllers/*": ["./src/controllers/*"],
       },
       "typeRoots": [
-        "./node_modules/@types",
-        "./src/@types"
+        "./node_modules/@types"
       ],
       "esModuleInterop": true,
       "skipLibCheck": true,
